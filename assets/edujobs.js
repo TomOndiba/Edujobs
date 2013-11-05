@@ -27,6 +27,18 @@ function enable_cv_othergrades_text_text(status)
 	document.educvpost.cv_grade_othercategories_text.disabled = status;
 }
 
+function enable_cvwe_othersubjects_text_text(status)
+{
+	status=!status;	
+	document.educvpost.cvwe_subject_othersubjects_text.disabled = status;
+}
+
+function enable_cvwe_othergrades_text_text(status)
+{
+	status=!status;	
+	document.educvpost.cvwe_grade_othercategories_text.disabled = status;
+}
+
 
   $(function() {
     $( "#accordion" ).accordion();

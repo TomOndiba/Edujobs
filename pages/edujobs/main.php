@@ -249,6 +249,39 @@ switch ($page[0]) {
 				$title = elgg_echo('edujobs:label:mycv');
 				$sortby = '';	// we don't want sort selector on this selection at the moment
 				if (check_if_user_has_cv($user))	{
+					//get user experience
+					$content_we = elgg_list_entities_from_metadata(array(
+						'type' => 'object',
+						'subtype' => 'educvwe',
+						'limit' => 0,
+						'full_view' => false,
+						'count' => false,
+						'pagination' => false,
+						'owner_guid' => $user->guid,
+					));	
+					
+					//get user education
+					$content_edu = elgg_list_entities_from_metadata(array(
+						'type' => 'object',
+						'subtype' => 'educvedu',
+						'limit' => 0,
+						'full_view' => false,
+						'count' => false,
+						'pagination' => false,
+						'owner_guid' => $user->guid,
+					));	
+					
+					//get user language
+					$content_lang = elgg_list_entities_from_metadata(array(
+						'type' => 'object',
+						'subtype' => 'educvlang',
+						'limit' => 0,
+						'full_view' => false,
+						'count' => false,
+						'pagination' => false,
+						'owner_guid' => $user->guid,
+					));	
+									
 					$content = elgg_list_entities_from_metadata(array(
 						'type' => 'object',
 						'subtype' => 'educv',
@@ -257,6 +290,9 @@ switch ($page[0]) {
 						'count' => false,
 						'pagination' => false,
 						'owner_guid' => $user->guid,
+						'content_we' => $content_we,
+						'content_edu' => $content_edu,
+						'content_lang' => $content_lang,
 					));						
 				} 
 				else {

@@ -10,6 +10,9 @@ elgg_load_js('edujobsjs');
 
 $full = elgg_extract('full_view', $vars, FALSE);
 $mycv = elgg_extract('entity', $vars, FALSE);
+$content_we = elgg_extract('content_we', $vars, FALSE);
+$content_edu = elgg_extract('content_edu', $vars, FALSE);
+$content_lang = elgg_extract('content_lang', $vars, FALSE);
 
 $user = elgg_get_logged_in_user_entity();
 
@@ -75,6 +78,7 @@ if ($full) {
     $params = $params + $vars;
     $summary = elgg_view('object/elements/summary', $params);
 
+	
     $body = '<div class="cvsection">';
     //$body .= '<div id="accordion">';
     $body .= '<div><h3>'.elgg_echo('edujobs:cv:add1:simple').'</h3></div>';
@@ -105,6 +109,33 @@ if ($full) {
     $body .= '<div class="cvmaster"><div class="cvleft">'.elgg_echo('edujobs:add:cv_more_info').':</div><div class="cvright">'.$mycv->cv_more_info.'</div></div>';
     $body .= '</div>';
 
+	if ($content_we)	{
+		$body .= '<div class="cvsection">';
+		$body .= '<div><h3>'.elgg_echo('edujobs:cv:add3:simple').'</h3></div>';
+		$body .= $content_we;
+		$body .= '</div>';
+	}
+	
+	if ($content_edu)	{
+		$body .= '<div class="cvsection">';
+		$body .= '<div><h3>'.elgg_echo('edujobs:cv:add4:simple').'</h3></div>';
+		$body .= $content_edu;
+		$body .= '</div>';
+	}	
+	
+	if ($content_lang)	{
+		$body .= '<div class="cvsection">';
+		$body .= '<div><h3>'.elgg_echo('edujobs:cv:add5:simple').'</h3></div>';
+		$body .= $content_lang;
+		$body .= '</div>';
+	}
+	
+	if ($mycv->cv_paste_cv)	{
+		$body .= '<div class="cvsection">';
+		$body .= '<div><h3>'.elgg_echo('edujobs:cv:add6:title').'</h3></div>';
+		$body .= $mycv->cv_paste_cv;
+		$body .= '</div>';
+	}
 	
     echo elgg_view('object/elements/full', array(
             'entity' => $mycv,
@@ -126,7 +157,23 @@ else {
 		'guid' => $mycv->owner_guid,
 	));    
 	
-    //$content = $mycv->cv_name;
+	//get user language
+	$content_lang = elgg_get_entities(array(
+		'type' => 'object',
+		'subtype' => 'educvlang',
+		'limit' => 0,
+		'full_view' => false,
+		'count' => false,
+		'pagination' => false,
+		'owner_guid' => $mycv->owner_guid,
+	));	   
+	if ($content_lang) {
+		$languages = elgg_echo('edujobs:cv:add5:simple').': ';
+		foreach ($content_lang as $lng)	{
+			$languages .= $lng->cvlang_language .' ('.elgg_echo($lng->cvlang_level).'), ';
+		}
+		$languages = substr_replace($languages ,"",-2);
+	} 
 	
 	$title_url = elgg_view('output/url', array(
 		'href' => "edujobs/teachers/cv/$elgg_user[0]->username",
@@ -142,6 +189,8 @@ else {
 	$content .=  '<p>';
 	$content .=  $mycv->cv_birth_country.' | '.$mycv->cv_birth_city.' | '.elgg_echo('edujobs:add:cv_salary_min_acceptable').': '.$mycv->cv_salary_min_acceptable.' '.$mycv->cv_salary_currency.elgg_echo('edujobs:cv:currency:per').elgg_echo($mycv->cv_salary_unit_of_time);
 	$content .=  '</p>';
+	if ($languages) $content .=  '<p>'.$languages.'</p>';
+	$content .=  '<p>'.elgg_echo('edujobs:cv:portfolio').'  '.elgg_echo('edujobs:add:subject').': '.$subject.'  '.elgg_echo('edujobs:add:grade').': '.$grade.'  '.'</p>';
 
 	  
     $params = array(

@@ -24,6 +24,39 @@ $sidebar = '';
 $title = elgg_echo('edujobs:cv', array($owner->name));
 
 if (check_if_user_has_cv($owner))	{
+	//get user experience
+	$content_we = elgg_list_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'educvwe',
+		'limit' => 0,
+		'full_view' => false,
+		'count' => false,
+		'pagination' => false,
+		'owner_guid' => $owner->guid,
+	));
+	
+	//get user education
+	$content_edu = elgg_list_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'educvedu',
+		'limit' => 0,
+		'full_view' => false,
+		'count' => false,
+		'pagination' => false,
+		'owner_guid' => $owner->guid,
+	));	
+	
+	//get user language
+	$content_lang = elgg_list_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'educvlang',
+		'limit' => 0,
+		'full_view' => false,
+		'count' => false,
+		'pagination' => false,
+		'owner_guid' => $owner->guid,
+	));		
+		
 	$content = elgg_list_entities_from_metadata(array(
 		'type' => 'object',
 		'subtype' => 'educv',
@@ -32,7 +65,10 @@ if (check_if_user_has_cv($owner))	{
 		'count' => false,
 		'pagination' => false,
 		'owner_guid' => $owner->guid,
-	));					
+		'content_we' => $content_we,
+		'content_edu' => $content_edu,
+		'content_lang' => $content_lang,
+	));	
 }
 
 if (!$content) {
@@ -44,6 +80,7 @@ $options = array(
 	'content' => $content,
 	'title' => $title,
 	'sidebar' => $sidebar,
+	
 	'filter_override' => elgg_view('edujobs/nav', array('selected' => $selected))
 );
 

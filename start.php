@@ -12,15 +12,30 @@ elgg_register_event_handler('init', 'system', 'edujobs_init');
 function edujobs_init() {
 	// set default values
 	define('DEFAULT_COUNTRY', 'Colombia');	// set default country
-	define('DEFAULT_PUBLISH_PERIOD', 'pp15');	// set default country
+	define('DEFAULT_PUBLISH_PERIOD', 'pp15');	// set published period
 	define('DATE_FORMAT', 'M j, Y');	// set default date format
 	define('JOB_STATUS_NORMAL', 'normal');	// set applicant job status to normal
 	define('JOB_STATUS_FAVORITE', 'favorite');	// set applicant job status to favorite
 	define('JOB_STATUS_REJECTED', 'rejected');	// set applicant job status to rejected
-	//define('COLEGIO_PROFILE_TYPE_GUID', 287);	// set colegio guid from profile manager
-	//define('DOCENTE_PROFILE_TYPE_GUID', 288);	// set colegio guid from profile manager	
-	define('COLEGIO_PROFILE_TYPE_GUID', 77);	// set colegio guid from profile manager
-	define('DOCENTE_PROFILE_TYPE_GUID', 75);	// set colegio guid from profile manager	
+	define('DEFAULT_LANG', 'Spanish');	// set default language
+	define('DEFAULT_CURRENCY', 'COP');	// set default currency
+	
+	$current_site = elgg_get_site_entity();
+	$temp = array();
+	$temp = explode(".", get_site_domain($current_site->guid));
+	if (in_array("sandbox", $temp)) {
+		define('COLEGIO_PROFILE_TYPE_GUID', 77);	// set colegio guid from profile manager
+		define('DOCENTE_PROFILE_TYPE_GUID', 75);	// set colegio guid from profile manager
+	}	
+	else if (in_array("edufolium", $temp)) {
+		define('COLEGIO_PROFILE_TYPE_GUID', 77);	// set colegio guid from profile manager
+		define('DOCENTE_PROFILE_TYPE_GUID', 75);	// set colegio guid from profile manager
+	}
+	else {
+		define('COLEGIO_PROFILE_TYPE_GUID', 287);	// set colegio guid from profile manager
+		define('DOCENTE_PROFILE_TYPE_GUID', 288);	// set colegio guid from profile manager	
+	}	
+
 	
     // register a library of helper functions
     elgg_register_library('elgg:edujobs', elgg_get_plugins_path() . 'edujobs/lib/edujobs.php');
@@ -62,7 +77,11 @@ function edujobs_init() {
 	elgg_register_action("edujobs/job/setrejected", "$action_path/setrejected.php");
 	elgg_register_action("edujobs/cvs/addcv1", "$action_path/goaddcv1.php");  
 	elgg_register_action("edujobs/cvs/addcv2", "$action_path/goaddcv2.php");  
-	elgg_register_action("edujobs/cv/delete", "$action_path/delcv.php"); 
+	//elgg_register_action("edujobs/cv/delete", "$action_path/delcv.php"); 
+	elgg_register_action("edujobs/cvs/addworkexperience", "$action_path/goaddworkexperience.php");  
+	elgg_register_action("edujobs/cvs/addeducation", "$action_path/goaddeducation.php");  
+	elgg_register_action("edujobs/cvs/addlanguage", "$action_path/goaddlanguage.php");  
+	elgg_register_action("edujobs/cvs/addcv6", "$action_path/goaddcv6.php");
 }
 
 /**
@@ -127,20 +146,59 @@ function edujobs_page_handler($page) {
 					include "$base/teachers/cvview.php";
 					break;						
 				case 'addcv1':
-					if(!empty($page[1])) {
+					if(!empty($page[2])) {
 						set_input('uguid', $page[2]);
 					}				
 					require_once "$base/teachers/addcv1.php";
 					break;		
 				case 'addcv2':
-					if(!empty($page[1])) {
+					if(!empty($page[2])) {
 						set_input('uguid', $page[2]);
 					}				
 					require_once "$base/teachers/addcv2.php";
+					break;
+				case 'addcv3':
+					if(!empty($page[2])) {
+						set_input('uguid', $page[2]);
+					}				
+					require_once "$base/teachers/addcv3.php";
+					break;
+				case 'addworkexperience':
+					if(!empty($page[2])) {	set_input('uguid', $page[2]);	}
+					if(!empty($page[3])) {	set_input('guid', $page[3]);	}
+					require_once "$base/teachers/addworkexperience.php";
+					break;	
+				case 'addcv4':
+					if(!empty($page[2])) {
+						set_input('uguid', $page[2]);
+					}				
+					require_once "$base/teachers/addcv4.php";
+					break;
+				case 'addeducation':
+					if(!empty($page[2])) {	set_input('uguid', $page[2]);	}
+					if(!empty($page[3])) {	set_input('guid', $page[3]);	}
+					require_once "$base/teachers/addeducation.php";
+					break;						
+				case 'addcv5':
+					if(!empty($page[2])) {
+						set_input('uguid', $page[2]);
+					}				
+					require_once "$base/teachers/addcv5.php";
+					break;
+				case 'addlanguage':
+					if(!empty($page[2])) {	set_input('uguid', $page[2]);	}
+					if(!empty($page[3])) {	set_input('guid', $page[3]);	}
+					require_once "$base/teachers/addlanguage.php";
 					break;		
+				case 'addcv6':
+					if(!empty($page[2])) {
+						set_input('uguid', $page[2]);
+					}				
+					require_once "$base/teachers/addcv6.php";
+					break;
 				default:
 					include "$base/main.php";
-					return false;									
+					return false;						
 			}
 			break;			
 

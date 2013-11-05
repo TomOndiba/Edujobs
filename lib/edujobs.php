@@ -100,6 +100,7 @@ function cv_prepare_form_vars($cv = null) {
 		'cv_grade_othercategories' => '',	        
 		'cv_grade_othercategories_text' => '',
 		'cv_more_info' => '',
+		'cv_paste_cv' => '',
 		'access_id' => ACCESS_DEFAULT,
 		'container_guid' => elgg_get_page_owner_guid(),
 		'entity' => $cv,
@@ -124,6 +125,152 @@ function cv_prepare_form_vars($cv = null) {
 	}
 
 	elgg_clear_sticky_form('educvpost');
+
+	return $values;
+	
+	return false; 
+}
+
+//add post cv work experience form parameters
+function cv_work_experience_prepare_form_vars($cvwe = null) {
+
+	// input names => defaults
+	$values = array(
+		'cvwe_job_title' => '',
+		'cvwe_organization' => '',
+		'cvwe_country' => '',
+		'cvwe_city' => '',
+		'cvwe_period_from' => '',
+		'cvwe_period_to' => '',
+		'cvwe_period_now' => '',
+		'cvwe_salary_starting' => '',
+		'cvwe_salary_ending' => '',
+		'cvwe_salary_unit_time' => '',
+		'cvwe_salary_currency' => '',
+		'cvwe_reasons_go' => '',
+		'cvwe_subject_math' => '',	
+		'cvwe_subject_science' => '',		
+		'cvwe_subject_socialstudies' => '',	
+		'cvwe_subject_spanish' => '',
+		'cvwe_subject_english' => '',	
+		'cvwe_subject_otherforeignlangs' => '',
+		'cvwe_subject_technology' => '',
+		'cvwe_subject_othersubjects' => '',
+		'cvwe_subject_othersubjects_text' => '',
+		'cvwe_grade_kindergarten' => '',
+		'cvwe_grade_earlyelementary' => '',
+		'cvwe_grade_lateelementary' => '',
+		'cvwe_grade_middleschool' => '',
+		'cvwe_grade_highschool' => '',
+		'cvwe_grade_othercategories' => '',	        
+		'cvwe_grade_othercategories_text' => '',	
+		'tags' => '',	
+		'cvwe_comments' => '',
+		'access_id' => ACCESS_DEFAULT,
+		'container_guid' => elgg_get_page_owner_guid(),
+		'entity' => $cvwe,
+		'guid' => null,
+	);          
+
+	if ($cvwe) {
+		foreach (array_keys($values) as $field) {
+			if (isset($cvwe->$field)) {
+					$values[$field] = $cvwe->$field;
+			}
+		}
+	}
+
+	if (elgg_is_sticky_form('educvwepost')) {
+		$sticky_values = elgg_get_sticky_values('educvwepost');
+		foreach ($sticky_values as $key => $value) {
+			$values[$key] = $value;
+		}
+	}
+
+	elgg_clear_sticky_form('educvwepost');
+
+	return $values;
+	
+	return false; 
+}
+
+//add post cv education form parameters
+function cv_education_prepare_form_vars($cvedu = null) {
+
+	// input names => defaults
+	$values = array(
+		'cvedu_degree' => '',
+		'cvedu_school_name' => '',
+		'cvedu_country' => '',
+		'cvedu_city' => '',
+		'cvedu_time_currently' => '',
+		'cvedu_time_from' => '',
+		'cvedu_time_to' => '',
+		'access_id' => ACCESS_DEFAULT,
+		'container_guid' => elgg_get_page_owner_guid(),
+		'entity' => $cvedu,
+		'guid' => null,
+	);          
+
+	if ($cvedu) {
+		foreach (array_keys($values) as $field) {
+			if (isset($cvedu->$field)) {
+					$values[$field] = $cvedu->$field;
+			}
+		}
+	}
+
+	if (elgg_is_sticky_form('educvedupost')) {
+		$sticky_values = elgg_get_sticky_values('educvedupost');
+		foreach ($sticky_values as $key => $value) {
+			$values[$key] = $value;
+		}
+	}
+
+	elgg_clear_sticky_form('educvedupost');
+
+	return $values;
+	
+	return false; 
+}
+
+//add post cv language form parameters
+function cv_language_prepare_form_vars($cvlang = null) {
+
+	// input names => defaults
+	$values = array(
+		'cvlang_language' => '',
+		'cvlang_level' => '',
+		'cvlang_cert_institute' => '',
+		'cvlang_reading_score' => '',
+		'cvlang_listening_score' => '',
+		'cvlang_speaking_score' => '',
+		'cvlang_writing_score' => '',
+		'cvlang_total_score' => '',
+		'cvlang_cert_document' => '',
+
+		'access_id' => ACCESS_DEFAULT,
+		'container_guid' => elgg_get_page_owner_guid(),
+		'entity' => $cvlang,
+		'guid' => null,
+	);          
+
+	if ($cvlang) {
+		foreach (array_keys($values) as $field) {
+			if (isset($cvlang->$field)) {
+					$values[$field] = $cvlang->$field;
+			}
+		}
+	}
+
+	if (elgg_is_sticky_form('educvlangpost')) {
+		$sticky_values = elgg_get_sticky_values('educvlangpost');
+		foreach ($sticky_values as $key => $value) {
+			$values[$key] = $value;
+		}
+	}
+
+	elgg_clear_sticky_form('educvlangpost');
 
 	return $values;
 	
@@ -271,6 +418,124 @@ function get_publish_periods_obs() {
     return $periods;
 }
 
+// get list of available languages
+function get_languages() {
+    $langs = array(
+		'Akan'=>elgg_echo('edujobs:langs:Akan'),
+		'Amharic'=>elgg_echo('edujobs:langs:Amharic'),
+		'Arabic'=>elgg_echo('edujobs:langs:Arabic'),
+		'Assamese'=>elgg_echo('edujobs:langs:Assamese'),
+		'Awadhi'=>elgg_echo('edujobs:langs:Awadhi'),
+		'Azerbaijani'=>elgg_echo('edujobs:langs:Azerbaijani'),
+		'Balochi'=>elgg_echo('edujobs:langs:Balochi'),
+		'Belarusian'=>elgg_echo('edujobs:langs:Belarusian'),
+		'Bengali'=>elgg_echo('edujobs:langs:Bengali'),
+		'Bhojpuri'=>elgg_echo('edujobs:langs:Bhojpuri'),
+		'Burmese'=>elgg_echo('edujobs:langs:Burmese'),
+		'Cantonese'=>elgg_echo('edujobs:langs:Cantonese'),
+		'Cebuano'=>elgg_echo('edujobs:langs:Cebuano'),
+		'Chewa'=>elgg_echo('edujobs:langs:Chewa'),
+		'Chhattisgarhi'=>elgg_echo('edujobs:langs:Chhattisgarhi'),
+		'Chittagonian'=>elgg_echo('edujobs:langs:Chittagonian'),
+		'Czech'=>elgg_echo('edujobs:langs:Czech'),
+		'Deccan'=>elgg_echo('edujobs:langs:Deccan'),
+		'Dhundhari'=>elgg_echo('edujobs:langs:Dhundhari'),
+		'Dutch'=>elgg_echo('edujobs:langs:Dutch'),
+		'English'=>elgg_echo('edujobs:langs:English'),
+		'French'=>elgg_echo('edujobs:langs:French'),
+		'Fula'=>elgg_echo('edujobs:langs:Fula'),
+		'Gan'=>elgg_echo('edujobs:langs:Gan'),
+		'German'=>elgg_echo('edujobs:langs:German'),
+		'Greek'=>elgg_echo('edujobs:langs:Greek'),
+		'Gujarati'=>elgg_echo('edujobs:langs:Gujarati'),
+		'Hakka'=>elgg_echo('edujobs:langs:Hakka'),
+		'Haryanvi'=>elgg_echo('edujobs:langs:Haryanvi'),
+		'Hausa'=>elgg_echo('edujobs:langs:Hausa'),
+		'Hiligaynon'=>elgg_echo('edujobs:langs:Hiligaynon'),
+		'Hindi'=>elgg_echo('edujobs:langs:Hindi'),
+		'Hmong'=>elgg_echo('edujobs:langs:Hmong'),
+		'Hungarian'=>elgg_echo('edujobs:langs:Hungarian'),
+		'Igbo'=>elgg_echo('edujobs:langs:Igbo'),
+		'Ilokano'=>elgg_echo('edujobs:langs:Ilokano'),
+		'Italian'=>elgg_echo('edujobs:langs:Italian'),
+		'Japanese'=>elgg_echo('edujobs:langs:Japanese'),
+		'Javanese'=>elgg_echo('edujobs:langs:Javanese'),
+		'Jin'=>elgg_echo('edujobs:langs:Jin'),
+		'Kannada'=>elgg_echo('edujobs:langs:Kannada'),
+		'Kazakh'=>elgg_echo('edujobs:langs:Kazakh'),
+		'Khmer'=>elgg_echo('edujobs:langs:Khmer'),
+		'Kinyarwanda'=>elgg_echo('edujobs:langs:Kinyarwanda'),
+		'Kirundi'=>elgg_echo('edujobs:langs:Kirundi'),
+		'Konkani'=>elgg_echo('edujobs:langs:Konkani'),
+		'Korean'=>elgg_echo('edujobs:langs:Korean'),
+		'Kurdish'=>elgg_echo('edujobs:langs:Kurdish'),
+		'Madurese'=>elgg_echo('edujobs:langs:Madurese'),
+		'Magahi'=>elgg_echo('edujobs:langs:Magahi'),
+		'Maithili'=>elgg_echo('edujobs:langs:Maithili'),
+		'Malagasy'=>elgg_echo('edujobs:langs:Malagasy'),
+		'Malay/Indonesian'=>elgg_echo('edujobs:langs:Malay/Indonesian'),
+		'Malayalam'=>elgg_echo('edujobs:langs:Malayalam'),
+		'Mandarin'=>elgg_echo('edujobs:langs:Mandarin'),
+		'Marathi'=>elgg_echo('edujobs:langs:Marathi'),
+		'Marwari'=>elgg_echo('edujobs:langs:Marwari'),
+		'Mossi'=>elgg_echo('edujobs:langs:Mossi'),
+		'Nepali'=>elgg_echo('edujobs:langs:Nepali'),
+		'Oriya'=>elgg_echo('edujobs:langs:Oriya'),
+		'Oromo'=>elgg_echo('edujobs:langs:Oromo'),
+		'Pashto'=>elgg_echo('edujobs:langs:Pashto'),
+		'Persian'=>elgg_echo('edujobs:langs:Persian'),
+		'Polish'=>elgg_echo('edujobs:langs:Polish'),
+		'Portuguese'=>elgg_echo('edujobs:langs:Portuguese'),
+		'Punjabi'=>elgg_echo('edujobs:langs:Punjabi'),
+		'Quechua'=>elgg_echo('edujobs:langs:Quechua'),
+		'Romanian'=>elgg_echo('edujobs:langs:Romanian'),
+		'Russian'=>elgg_echo('edujobs:langs:Russian'),
+		'Saraiki'=>elgg_echo('edujobs:langs:Saraiki'),
+		'Serbo-Croatian'=>elgg_echo('edujobs:langs:Serbo-Croatian'),
+		'Shona'=>elgg_echo('edujobs:langs:Shona'),
+		'Sindhi'=>elgg_echo('edujobs:langs:Sindhi'),
+		'Sinhalese'=>elgg_echo('Sinhalese'),
+		'Somali'=>elgg_echo('edujobs:langs:Somali'),
+		'Spanish'=>elgg_echo('edujobs:langs:Spanish'),
+		'Sundanese'=>elgg_echo('edujobs:langs:Sundanese'),
+		'Swahili'=>elgg_echo('edujobs:langs:Swahili'),
+		'Swedish'=>elgg_echo('edujobs:langs:Swedish'),
+		'Sylheti'=>elgg_echo('edujobs:langs:Sylheti'),
+		'Tagalog'=>elgg_echo('edujobs:langs:Tagalog'),
+		'Tamil'=>elgg_echo('edujobs:langs:Tamil'),
+		'Telugu'=>elgg_echo('edujobs:langs:Telugu'),
+		'Thai'=>elgg_echo('edujobs:langs:Thai'),
+		'Turkish'=>elgg_echo('edujobs:langs:Turkish'),
+		'Ukrainian'=>elgg_echo('edujobs:langs:Ukrainian'),
+		'Urdu'=>elgg_echo('edujobs:langs:Urdu'),
+		'Uyghur'=>elgg_echo('edujobs:langs:Uyghur'),
+		'Uzbek'=>elgg_echo('edujobs:langs:Uzbek'),
+		'Vietnamese'=>elgg_echo('edujobs:langs:Vietnamese'),
+		'Wu'=>elgg_echo('edujobs:langs:Wu'),
+		'Xhosa'=>elgg_echo('edujobs:langs:Xhosa'),
+		'Xiang'=>elgg_echo('edujobs:langs:Xiang'),
+		'Yoruba'=>elgg_echo('edujobs:langs:Yoruba'),
+		'Zhuang'=>elgg_echo('edujobs:langs:Zhuang'),
+		'Zulu'=>elgg_echo('edujobs:langs:Zulu'),
+    );
+    
+    return $langs;
+}
+
+// get list of lang levels
+function get_lang_levels() {
+    $lang_level = array(
+		'edujobs:langs:level:mother'=>elgg_echo('edujobs:langs:level:mother'),
+		'edujobs:langs:level:native'=>elgg_echo('edujobs:langs:level:native'),
+		'edujobs:langs:level:advanced'=>elgg_echo('edujobs:langs:level:advanced'),
+		'edujobs:langs:level:intermediate'=>elgg_echo('edujobs:langs:level:intermediate'),
+		'edujobs:langs:level:basic'=>elgg_echo('edujobs:langs:level:basic'),
+		'edujobs:langs:level:none'=>elgg_echo('edujobs:langs:level:none'),
+    );
+    
+    return $lang_level;
+}
+
 // get list of publish periods
 function get_genders() {
     $genders = array(
@@ -339,6 +604,7 @@ function get_work_desired() {
 // get list of salary time
 function get_salary_time() {
     $salary_time = array(
+		'edujobs:add:year'=>elgg_echo('edujobs:add:year'),
 		'edujobs:add:month'=>elgg_echo('edujobs:add:month'),
 		'edujobs:add:hour'=>elgg_echo('edujobs:add:hour'),
     );

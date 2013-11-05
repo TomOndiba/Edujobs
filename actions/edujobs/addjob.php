@@ -154,6 +154,11 @@ if (check_if_user_can_post_jobs($user))   {
 		elgg_clear_sticky_form('edujobspost');
 
         system_message(elgg_echo('edujobs:add:job:success'));
+        
+        //add to river only if new
+        if ($new) {
+            add_to_river('river/object/edujobs/create','create', elgg_get_logged_in_user_guid(), $job->getGUID());
+        }        
 
         forward($job->getURL());
     } else {

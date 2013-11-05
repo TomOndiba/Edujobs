@@ -17,7 +17,7 @@ if (check_if_user_is_teacher($user) && $user->guid==$uguid) {
     
     elgg_push_breadcrumb(elgg_echo('edujobs'), 'edujobs/jobs'); 
     elgg_push_breadcrumb(elgg_echo('edujobs:label:mycv'), 'edujobs/teachers/mycv'); 
-    elgg_push_breadcrumb($title);
+    elgg_push_breadcrumb(elgg_echo('edujobs:cv:add1:simple'));
 
 	$cv_guid = check_if_user_has_cv($user);
 	if ($cv_guid)	{

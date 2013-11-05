@@ -176,7 +176,7 @@ if (!empty($cv_grade_othercategories) || !empty($cv_grade_othercategories_text))
 	</div>
 	<div class='form-right-checkbox'>
 		<?php 
-			echo elgg_view('input/checkboxes', array('name' => 'cv_subject_math', 'id' => 'cv_subject_math', 'value' => $subject_math, 'options' => array(elgg_echo('edujobs:add:cv_subject_math')=>'1')));
+			echo elgg_view('input/checkboxes', array('name' => 'cv_subject_math', 'id' => 'cv_subject_math', 'value' => $cv_subject_math, 'options' => array(elgg_echo('edujobs:add:cv_subject_math')=>'1')));
 			echo elgg_view('input/checkboxes', array('name' => 'cv_subject_science', 'id' => 'cv_subject_science', 'value' => $cv_subject_science, 'options' => array(elgg_echo('edujobs:add:cv_subject_science')=>'1')));
 			echo elgg_view('input/checkboxes', array('name' => 'cv_subject_socialstudies', 'id' => 'cv_subject_socialstudies', 'value' => $cv_subject_socialstudies, 'options' => array(elgg_echo('edujobs:add:cv_subject_socialstudies')=>'1')));
 			echo elgg_view('input/checkboxes', array('name' => 'cv_subject_spanish', 'id' => 'cv_subject_spanish', 'value' => $cv_subject_spanish, 'options' => array(elgg_echo('edujobs:add:cv_subject_spanish')=>'1')));
@@ -236,6 +236,7 @@ if (!empty($cv_grade_othercategories) || !empty($cv_grade_othercategories_text))
             echo elgg_view('input/hidden', array('name' => 'object_guid', 'value' => $guid));
     }
     echo elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $container_guid));
-    echo elgg_view('input/submit', array('value' => elgg_echo('edujobs:add:submit')));
+    echo elgg_view('input/submit', array('value' => elgg_echo('edujobs:add:submit:next')));
+    //echo elgg_view('input/submit', array('value' => elgg_echo('edujobs:add:submit')));
 ?>
 </div>

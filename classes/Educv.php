@@ -43,6 +43,7 @@ class Educv extends ElggObject {
 		"cv_grade_othercategories"		=> NULL,        
         "cv_grade_othercategories_text"	=> NULL, 
         "cv_more_info" 					=> NULL,
+        "cv_paste_cv" 					=> NULL,
         "tags" 				=> NULL,
         "comments_on" 		=> NULL,
     );    

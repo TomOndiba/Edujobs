@@ -13,11 +13,11 @@ $uguid = get_input('uguid');
 // check if user can upload CV
 if (check_if_user_is_teacher($user) && $user->guid==$uguid) { 
 
-    $title = elgg_echo('edujobs:cv:add2');
+    $title = elgg_echo('edujobs:cv:add6');
     
     elgg_push_breadcrumb(elgg_echo('edujobs'), 'edujobs/jobs'); 
     elgg_push_breadcrumb(elgg_echo('edujobs:label:mycv'), 'edujobs/teachers/mycv'); 
-    elgg_push_breadcrumb(elgg_echo('edujobs:cv:add2:simple'));
+    elgg_push_breadcrumb(elgg_echo('edujobs:cv:add6:simple'));
 
 	$cv_guid = check_if_user_has_cv($user);
 	if ($cv_guid)	{
@@ -31,12 +31,12 @@ if (check_if_user_is_teacher($user) && $user->guid==$uguid) {
 	
     // create form
     $form_vars = array('name' => 'educvpost', 'enctype' => 'multipart/form-data');
-    $content = elgg_view_form('edujobs/cvs/addcv2', $form_vars, $vars);
+    $content = elgg_view_form('edujobs/cvs/addcv6', $form_vars, $vars);
 
     $body = elgg_view_layout('content', array(
         'content' => $content,
         'title' => $title,
-        'sidebar' => elgg_view('edujobs/cv_sidebar', array('user_guid' => $uguid, 'selected' => 'cv2')),
+        'sidebar' => elgg_view('edujobs/cv_sidebar', array('user_guid' => $uguid, 'selected' => 'cv6')),
         'filter' => '',
     ));
 

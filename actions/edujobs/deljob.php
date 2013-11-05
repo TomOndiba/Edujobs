@@ -34,6 +34,30 @@ else if ((elgg_instanceof($job, 'object', 'educv')) && $job->canEdit()) {
         }
     }
 }
+else if ((elgg_instanceof($job, 'object', 'educvwe')) && $job->canEdit()) {
+    $container = $job->getContainerEntity();
+
+    if ($job->delete()) {
+        system_message(elgg_echo("edujobs:delete:cvwe:success"));
+        forward("edujobs/teachers/addcv3/".$container->guid);
+    }
+}
+else if ((elgg_instanceof($job, 'object', 'educvedu')) && $job->canEdit()) {
+    $container = $job->getContainerEntity();
+
+    if ($job->delete()) {
+        system_message(elgg_echo("edujobs:delete:cvedu:success"));
+        forward("edujobs/teachers/addcv4/".$container->guid);
+    }
+}
+else if ((elgg_instanceof($job, 'object', 'educvlang')) && $job->canEdit()) {
+    $container = $job->getContainerEntity();
+
+    if ($job->delete()) {
+        system_message(elgg_echo("edujobs:delete:cvlang:success"));
+        forward("edujobs/teachers/addcv5/".$container->guid);
+    }
+}
 
 register_error(elgg_echo("edujobs:delete:job:failed"));
 forward(REFERER);
